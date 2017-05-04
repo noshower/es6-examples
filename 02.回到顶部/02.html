@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>回到顶部</title>
+    <style>
+        body {
+            height: 2000px;
+        }
+        #btn {
+            position: fixed;
+            right: 20px;
+            bottom:100px;
+            padding: 5px;
+            border:1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+<div id="btn">回到顶部</div>
+<script>
+    window.onload=function(){
+        let obtn= document.getElementById('btn'),timer=null,isTop = true;
+        //滚动条滚动时触发
+        window.onscroll=function(){
+            if(!isTop){
+                clearInterval(timer);
+            }
+            isTop=false;
+        };
+        btn.addEventListener('click',function(){
+            //设置定时器
+            timer = setInterval(()=>{
+                //获取滚动条距离顶部的高度
+                let osTop = document.documentElement.scrollTop || document.body.scrollTop;
+                let ispeed = Math.floor(-osTop/5);
+                document.documentElement.scrollTop=document.body.scrollTop=osTop+ispeed;
+                isTop=true;
+                if(osTop ===0){
+                    clearInterval(timer);
+                }
+            },30)
+        });
+    }
+
+</script>
+</body>
+</html>

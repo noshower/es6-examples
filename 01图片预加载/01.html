@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片预加载</title>
+    <style>
+        html,body {
+            height:100%;
+        }
+        .box {
+            text-align: center;
+        }
+        img {
+
+            height:400px;
+        }
+        .btn {
+            display: inline-block;
+            height:30px;
+            line-height:30px;
+            border:1px solid #ccc;
+            background:#fff;
+            padding:0 10px;
+            margin-right:50px;
+            color:#333;
+        }
+        .btn:hover {
+            background: #eee;
+        }
+        .loading {
+            position: fixed;
+            top:0;
+            left:0;
+            right:0;
+            bottom: 0;
+            background: #eeeeee;
+            text-align: center;
+            font-size:30px;
+        }
+        .progress {
+            margin-top:300px;
+        }
+    </style>
+</head>
+<body>
+<h1>预知用户将发生的行为，提前加载用户需要的图片</h1>
+<div class="box">
+    <img src="http://noshower.oss-cn-shanghai.aliyuncs.com/jianshu/Gk4SjFJMRQziTPJhAzMdENp3d6jHsWnP.png" alt="">
+    <p>
+        <span  class="btn prev">上一页</span>
+        <span  class="btn next">下一页</span>
+    </p>
+</div>
+<div class="loading">
+    <p class="progress">0%</p>
+</div>
+<script>
+    let imgs= ['http://noshower.oss-cn-shanghai.aliyuncs.com/jianshu/Gk4SjFJMRQziTPJhAzMdENp3d6jHsWnP.png',
+        'http://noshower.oss-cn-shanghai.aliyuncs.com/jianshu/24RhW4aDbyFX3epfRrBEZEccydjmYpS5.png',
+        'http://noshower.oss-cn-shanghai.aliyuncs.com/jianshu/33HpNwSA4anszrXXR3NQjHNFZDCCSyyY.png',
+    'http://noshower.oss-cn-shanghai.aliyuncs.com/jianshu/Ry3FNHZ7DZFcnFHb7rcB8QATNcRXKfAT.png',
+    'http://noshower.oss-cn-shanghai.aliyuncs.com/jianshu/RcGzbhfte6kNaFBah2tsRXYfKjx4mzHC.png'],
+        index = 0,
+        len=imgs.length,
+        count=0,
+        progress=document.querySelector('.progress');
+    //预加载图片
+    imgs.map((item,index,array)=>{
+        let imgObj = new Image();
+        imgObj.onload=()=>{
+            progress.innerHTML=Math.round((count+1)/len*100)+'%';
+            if(count>=len-1){
+                document.querySelector('.loading').style.display='none';
+            }
+            count++;
+        };
+        imgObj.onerror=()=>{
+            progress.innerHTML=Math.round((count+1)/len*100)+'%';
+            if(count>=len-1){
+                document.querySelector('.loading').style.display='none';
+            }
+            count++;
+        }
+        imgObj.src = item;
+    });
+    //上一页
+    document.querySelector('.prev').addEventListener('click',function(){
+        index=Math.max(0,--index);
+        document.querySelector('img').setAttribute('src',imgs[index]);
+    });
+    //下一页
+    document.querySelector('.next').addEventListener('click',function(){
+        index = Math.min(len-1,++index);
+        document.querySelector('img').setAttribute('src',imgs[index]);
+    });
+
+</script>
+</body>
+</html>
