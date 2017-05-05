@@ -73,24 +73,16 @@
     }];
     const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'];
     //1.刷选出在1500~1599出生的人
-    const a = inventors.filter((item) => {
-        return item.year >= 1500 && item.year < 1600
-    });
-    console.log(a);
+    const fifteen = inventors.filter((item) => item.year >= 1500 && item.year < 1600);
+    console.table(fifteen);
     //2.给我们一个数组，包括first name 和last name;
-    const fullName = inventors.map((item) => {
-        return `${item.first} ${item.last}`;
-    });
+    const fullName = inventors.map((item) =>  `${item.first} ${item.last}`);
     console.log(fullName);
     //3.将inventors进行排序，按照出生日期的大小，从大到小
-    const ordered = inventors.sort((a, b) => {
-        return a.year > b.year ? 1 : -1;
-    });
-    console.log(ordered);
+    const ordered = inventors.sort((a, b) =>  a.year > b.year ? 1 : -1);
+    console.table(ordered);
     //4.所有的inventor活了多少年
-    const totalYears = inventors.reduce((total, currentValue, currentIndex) => {
-        return total + (currentValue.passed - currentValue.year);
-    }, 0);
+    const totalYears = inventors.reduce((total, currentValue, currentIndex) =>  total + (currentValue.passed - currentValue.year), 0);
     console.log(totalYears);
     //5.按照活着的年龄排序
     const oldest = inventors.sort((a, b) => {
