@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JS + CSS Cloc</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="box" style=" width: 200px;height: 200px;background: red;opacity: 0.9;border-radius: 50%;">
+
+    </div>
+    <button type="button" id="remove">删除背景</button>
+    <button type="button" id="set">设置背景</button>
+    <button type="button" id="get">获取背景</button>
+    <script>
+        let node = document.querySelector('.box');
+        document.getElementById('remove').addEventListener('click', function() {
+            node.style.removeProperty('background');
+
+        });
+        document.getElementById('set').addEventListener('click', function() {
+            node.style.setProperty('background', 'blue');
+        });
+        document.getElementById('get').addEventListener('click', function() {
+            console.log(node.style.getPropertyValue('background'));
+        });
+    </script>
+</body>
+
+</html>
