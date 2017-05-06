@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JS + CSS Cloc</title>
+</head>
+
+<body>
+    <script>
+        const people = [
+            { name: 'Wes', year: 1988 },
+            { name: 'Kait', year: 1986 },
+            { name: 'Irv', year: 1970 },
+            { name: 'Lux', year: 2015 }
+        ];
+
+        const comments = [
+            { text: 'Love this!', id: 523423 },
+            { text: 'Super good', id: 823423 },
+            { text: 'You are the best', id: 2039842 },
+            { text: 'Ramen is my fav food ever', id: 123523 },
+            { text: 'Nice Nice Nice!', id: 542328 }
+        ];
+        const year = new Date().getFullYear();
+        //1.是否至少有一人年满19周岁？
+        let a1 = people.some(item => (year - item.year) >= 19);
+        //2.是否每一个人都年满19周岁？
+        let a2 = people.every(item => (year - item.year) >= 19);
+        //3.是否存在id=823423的评论？
+        let a3 = comments.find(item => item.id === 823423);
+        //4.找到id=823423的评论的序列号(下标)。
+        let a4 = comments.findIndex(item => item.id === 823423);
+        //5.删除id=823423的评论。
+         comments.splice(a4, 1);
+    </script>
+</body>
+
+</html>
