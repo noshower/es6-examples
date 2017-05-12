@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JS Reference VS Copy</title>
+</head>
+
+<body>
+    <script>
+        // 字符串，数字，布尔值的复制
+        let age = 100;
+        let age2 = age;
+        console.log(age, age2); // 100 100
+        age = 200;
+        console.log(age, age2); // 200 100
+
+        let name = 'Wes';
+        let name2 = name;
+        console.log(name, name2); // Wes Wes
+        name = 'wesley';
+        console.log(name, name2); // wesley Wes
+
+        // 数组的复制
+        const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+        const team = players;
+        console.log(players, team); //["Wes", "Sarah", "Ryan", "Poppy"]
+        // 你或许认为我们可以这样做：
+        team[3] = 'Lux';
+        // 然而当我们更新了数组之后，发生了什么
+        // 现在这而有一个问题！我们同时改变了原始的数组；
+        //为什么？这是因为这个数组是个引用，不是一个数组的复制。两个数组同时指向一个数组。
+        // 那么我们该如何修复这个问题？我们可以采用副本代替；
+        const team2 = players.slice();
+        // 或者 创建一个新数组同时连接旧数组
+        const team3 = [].concat(players);
+        // 或者使用es6的扩展运算符
+        const team4 = [...players];
+        console.log(team4); //["Wes", "Sarah", "Ryan", "Lux"]
+        const team5 = Array.from(players);
+        //现在当我们更新它之后，原始的数组没有更新
+        console.log(team5); //['Wes', 'Sarah', 'Ryan', 'Lux'];
+
+        //同样的事也适用于 objects,比如我们有一个person对象
+        const person = {
+            name: 'Wes Bos',
+            age: 80
+        };
+        // and think we make a copy:
+        const captain = person;
+        captain.number = 99;
+        console.log(person) //{name:'Wes Bos',age:80,number:99}
+
+        //我们如何采用副本代替？
+        const cap2 = Object.assign({}, person, {
+            number: 99,
+            age: 12
+        });
+        console.log(cap2); // {name:'Wes Bos',number:99,age:12}
+        console.log(person) //{name:'Wes Bos',age:80,number:99}
+
+        //如果我们复制的对象也包含对象，那么我们只能复制到第一层。 任何比第一层更深的值仍然是原对象的引用。
+        const wes = {
+            name: 'Wes',
+            age: 100,
+            social: {
+                twitter: '@wesbos',
+                facebook: 'wesbos.developer'
+            }
+        };
+
+        const dev = Object.assign({}, wes);
+        dev.social.job = 'teacher';
+        console.log(wes === dev); //false
+        console.log(wes.social.job); //teacher
+
+        const dev2 = JSON.parse(JSON.stringify(wes));
+        dev2.social.job = 'teacher';
+        console.log(wes === dev2); //false
+        console.log(wes.social.job); //teacher
+
+        let child1 = {
+            age: 12,
+            name: 1
+        }
+        let child2 = {
+            age: 8,
+            name: 2
+        }
+        let parent = {
+            age: 88,
+            children: [child1, child2]
+        }
+        let p = Object.assign({}, parent);
+        p.children[0].sex = 'nv';
+        console.log(parent.children[0].sex); //nv
+    </script>
+</body>
+
+</html>
